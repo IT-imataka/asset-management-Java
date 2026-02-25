@@ -1,13 +1,14 @@
 package com.example.asset_management.entity;
 
-public class Asset {
-    private Long id;
+import com.example.asset_management.enums.Category;
+import com.example.asset_management.enums.Status;
 
-    public Long getId() {
+public class Asset {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -19,6 +20,22 @@ public class Asset {
         this.name = name;
     }
 
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
+    }
+
     public String getUserName() {
         return userName;
     }
@@ -27,6 +44,9 @@ public class Asset {
         this.userName = userName;
     }
 
+    private String id;
     private String name;
+    private Category category;
+    private Status status;
     private String userName;
 }
