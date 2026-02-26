@@ -1,28 +1,47 @@
 package com.example.asset_management;
 import com.example.asset_management.entity.Asset;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.example.asset_management.enums.Category;
+import com.example.asset_management.enums.Status;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
 @CrossOrigin (origins = "http://localhost:5173")
 public class AssetController {
-//    @GetMapping("/asset")
-//    public List<Asset> getAssets(){
-//        Asset asset = new Asset();
-//        asset.setId(1L);
-//        asset.setName("Macbook");
-//
-//        Asset asset1 = new Asset();
-//        asset1.setId(2L);
-//        asset1.setName("クリームたい焼き");
-//
-//        Asset asset2 = new Asset();
-//        asset2.setId(3L);
-//        asset2.setName("カスタードたい焼き");
-//
-//        return List.of(asset,asset1,asset2);
-//    }
+    // 使い捨てのコントローラーから保存できるようにする
+    // これがフィールド
+    private final List<Asset> assetList = new ArrayList<>();
+
+    // 初回起動時にだけ実行するコンストラクタ
+    public AssetController(){
+        // １件目
+        Asset mac = new Asset();
+        mac.setId("A0001");
+        mac.setName("MacBook Air");
+        mac.setCategory(Category.PC);
+        mac.setStatus(Status.ASSIGNED);
+        mac.setUserName("我");
+        assetList.add(mac);
+
+        // モニター
+        Asset monitor = new Asset();
+        monitor.setId("A0002");
+        monitor.setName("外部モニター");
+        monitor.setCategory(Category.MONITOR);
+        monitor.setStatus(Status.ASSIGNED);
+        monitor.setUserName(null);
+        assetList.add(monitor);
+    }
+
+    @GetMapping("/asset")
+    public List<Asset> getAssets(){
+        return assetList;
+    }
+    @PostMapping("/asset")
+    public void postAssets(@RequestBody Asset asset){
+        assetList.add(asset);
+        System.out.println("登録しました:" + asset.getName());
+    }
 }
