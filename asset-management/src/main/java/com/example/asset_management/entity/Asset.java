@@ -2,8 +2,28 @@ package com.example.asset_management.entity;
 
 import com.example.asset_management.enums.Category;
 import com.example.asset_management.enums.Status;
+import jakarta.persistence.*;
 
+// ここからDBのテーブルという宣言
+@Entity
+// テーブル名
+@Table(name = "asset")
 public class Asset {
+
+    // DB上で定義するプライマリキー
+    @Id
+    private String id;
+
+    private String name;
+
+    @Enumerated(EnumType.STRING)
+    private Category category;
+
+    @Enumerated(EnumType.STRING)
+    private Status status;
+    private String userName;
+
+    // GetterとSetter
     public String getId() {
         return id;
     }
@@ -44,9 +64,4 @@ public class Asset {
         this.userName = userName;
     }
 
-    private String id;
-    private String name;
-    private Category category;
-    private Status status;
-    private String userName;
 }
